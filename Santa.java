@@ -4,28 +4,50 @@ import java.io.*;
 public class Santa{
 	public static void main(String[] arg)throws IOException{
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
-		//ArrayList<Kids> kids = new ArrayList<Kids>();
+		ArrayList<Kid> kids = new ArrayList<Kid>();
 
+		//fillKidsList(kids);
+		fillGiftList(gifts);
 		getBudget();
 		getDays();
 
 	}
 
-	public static void fillGiftList(ArrayList gifts)throws IOException{
+	public static void fillKidsList(ArrayList kids)throws IOException{
 		Scanner r = new Scanner(new File("kids.txt"));
-		Scanner i = new Scanner(new File("gift.txt"));
+		String n;
 		String g;
-		Integer min;
-		Integer max;
-		Double p;
-		Integer d;
+		int a;
 
-		while(i.hasNext()){
-			g=i.nextLine();
-			min=Integer.parseInt(i.nextLine());
-			max=Integer.parseInt(i.nextLine());
-			p=Double.parseDouble(i.nextLine());
-			d=Integer.parseInt(i.nextLine());
+		r.useDelimiter(",");
+
+		while(r.hasNext()){
+			n=r.nextLine();
+			g=r.nextLine();
+			a=r.nextInt();
+
+			kids.add(new Kid(n, g, a));
+
+		}
+
+	}
+
+
+	public static void fillGiftList(ArrayList gifts)throws IOException{
+		Scanner reader = new Scanner(new File("gifts.txt"));
+		String g;
+		int min;
+		int max;
+		Double p;
+		int d;
+
+	while(reader.hasNext()){
+			g=reader.nextLine();
+			min=reader.nextInt();
+			max=reader.nextInt();
+			p=reader.nextDouble();
+			d=reader.nextInt();
+			reader.nextLine();
 
 			gifts.add(new Gift(g,min,max,p,d));
 		}
@@ -54,7 +76,7 @@ public class Santa{
 
 	}
 
-	public static int getDays(){
+	public static int getDays(){//(ER) gets user input for how many days until christmas
 		Scanner r = new Scanner(System.in);
 		int days=0;
 		boolean validDays=false;
@@ -63,7 +85,7 @@ public class Santa{
 			System.out.println("Please enter how many days are left until Christmas.");
 			days = r.nextInt();
 
-			if(days>3){
+			if(days>0){
 				validDays = true;
 				return days;
 			}
