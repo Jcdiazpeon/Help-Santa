@@ -141,6 +141,3 @@ public class Santa{
 		return sortedKids;
 	}
 }
-
-
-}
