@@ -96,5 +96,51 @@ public class Santa{
 
 		return days;
 	}
+	
+	public static ArrayList sortGifts(ArrayList<Gift> gifts){  //returns a sorted gift array list by price (Jose)
+		ArrayList<Gift> sortedGifts = new ArrayList<Gift>();
+		int index = 0;
+
+		for(Gift temp : gifts){
+			if(index == 0){
+				sortedGifts.add(index, temp); //adds first gift to the list
+				index++;
+			}
+			else{
+				for(Gift sortedTemp : sortedGifts){ // finds the correct spot of each gift in the sorted list
+					if(temp.getPrice() <= sortedTemp.getPrice()){
+						sortedGifts.add(index, temp);
+						index++;
+						break;
+					}
+					index++;
+				}
+			}
+		}
+		return sortedGifts;
+	}
+
+	public static ArrayList sortKids(ArrayList<Kid> kids){  //Sorts arrayList of Kids according to age and returns arrayList (Jose)
+		ArrayList<Kid> sortedKids = new ArrayList<Kid>();
+		int index = 0;
+
+		for(Kid temp : kids){
+			if(index == 0){
+				sortedKids.add(temp);
+				index++;
+			}
+			for(Kid sortedTemp : sortedKids){
+				if(temp.getAge() <= sortedTemp.getAge()){
+					sortedKids.add(0, temp);
+					index++;
+					break;
+				}
+				index++;
+			}
+		}
+		return sortedKids;
+	}
+}
+
 
 }
