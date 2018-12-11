@@ -1,3 +1,9 @@
+/*
+Jacob Marsh, 12/11/18, Pd. 6
+This is my own work, JAM
+PROJECT DESCRIPTION -- Class for the creation of gift objects to be utilised in the Help Santa group project.
+*/
+
 public class Gift
 {
 	//variables
