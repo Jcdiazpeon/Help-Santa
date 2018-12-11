@@ -14,17 +14,17 @@ public class Kid
 	}
 
 	//get varables
-	public String getName(String n)
+	public String getName()
 	{
 		return name;
 	}
 
-	public String getGoodness(String g)
+	public String getGoodness()
 	{
 		return goodness;
 	}
 
-	 public int getAge(int a)
+	 public int getAge()
 	 {
 	    return age;
 	 }
