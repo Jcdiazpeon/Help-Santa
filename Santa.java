@@ -6,7 +6,7 @@ public class Santa{
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
 		ArrayList<Kid> kids = new ArrayList<Kid>();
 
-		//fillKidsList(kids);
+		fillKidsList(kids);
 		fillGiftList(gifts);
 		gifts = sortGifts(gifts);
 		kids = sortKids(kids);
@@ -15,7 +15,7 @@ public class Santa{
 
 	}
 
-	public static void fillKidsList(ArrayList kids)throws IOException{
+	public static void fillKidsList(ArrayList kids)throws IOException{ //(ER) Fills the kids array list
 		Scanner r = new Scanner(new File("kids.txt"));
 		String name;
 		String in;
@@ -39,7 +39,7 @@ public class Santa{
 	}
 
 
-	public static void fillGiftList(ArrayList gifts)throws IOException{
+	public static void fillGiftList(ArrayList gifts)throws IOException{//(ER) fills the gift list
 		Scanner reader = new Scanner(new File("gifts.txt"));
 		String g;
 		int min;
@@ -60,7 +60,7 @@ public class Santa{
 
 	}
 
-	public static double getBudget(){
+	public static double getBudget(){//(ER) Gets user input for the budget.
 		Scanner r = new Scanner(System.in);
 		double budget = 0.0;
 		boolean validBudget = false;
