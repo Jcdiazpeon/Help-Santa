@@ -8,6 +8,8 @@ public class Santa{
 
 		//fillKidsList(kids);
 		fillGiftList(gifts);
+		gifts = sortGifts(gifts);
+		kids = sortKids(kids);
 		getBudget();
 		getDays();
 
@@ -104,19 +106,27 @@ public class Santa{
 	public static ArrayList sortGifts(ArrayList<Gift> gifts){  //returns a sorted gift array list by price (Jose)
 		ArrayList<Gift> sortedGifts = new ArrayList<Gift>();
 		int index = 0;
+		boolean isFirst = true;
 
 		for(Gift temp : gifts){
-			if(index == 0){
-				sortedGifts.add(index, temp); //adds first gift to the list
-				index++;
+			if(isFirst){
+				sortedGifts.add(0, temp); //adds first gift to the list
+				isFirst = false;
 			}
 			else{
+				index = 0;
 				for(Gift sortedTemp : sortedGifts){ // finds the correct spot of each gift in the sorted list
-					if(temp.getPrice() <= sortedTemp.getPrice()){
+					if(temp.getPrice() <= sortedTemp.getPrice()){ //bad
 						sortedGifts.add(index, temp);
-						index++;
+						index = 0;
 						break;
 					}
+					if(index >= sortedGifts.size()-1){
+						sortedGifts.add(temp);
+						index = 0;
+						break;
+					}
+
 					index++;
 				}
 			}
