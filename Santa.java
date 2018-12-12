@@ -15,18 +15,22 @@ public class Santa{
 
 	public static void fillKidsList(ArrayList kids)throws IOException{
 		Scanner r = new Scanner(new File("kids.txt"));
-		String n;
-		String g;
-		int a;
-
-		r.useDelimiter(",");
+		String name;
+		String in;
+		String good;
+		String sub;
+		int age;
 
 		while(r.hasNext()){
-			n=r.nextLine();
-			g=r.nextLine();
-			a=r.nextInt();
+			in=r.nextLine();
+			int comma1=in.indexOf(',');
+			int comma2=in.indexOf(',',comma1+1);
+			name=in.substring(0,comma1);
+			good=in.substring(comma1+2,comma2);
+			sub=in.substring(comma2+2);
+			age=Integer.parseInt(sub);
 
-			kids.add(new Kid(n, g, a));
+			kids.add(new Kid(name,good,age));
 
 		}
 
