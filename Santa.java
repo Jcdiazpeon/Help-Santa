@@ -137,19 +137,28 @@ public class Santa{
 	public static ArrayList sortKids(ArrayList<Kid> kids){  //Sorts arrayList of Kids according to age and returns arrayList (Jose)
 		ArrayList<Kid> sortedKids = new ArrayList<Kid>();
 		int index = 0;
+		boolean isFirst = true;
 
 		for(Kid temp : kids){
-			if(index == 0){
-				sortedKids.add(temp);
-				index++;
+			if(isFirst){
+				sortedKids.add(0, temp);
+				isFirst = false;
 			}
-			for(Kid sortedTemp : sortedKids){
-				if(temp.getAge() <= sortedTemp.getAge()){
-					sortedKids.add(0, temp);
+			else{
+				index = 0;
+				for(Kid sortedTemp : sortedKids){
+					if(temp.getAge() <= sortedTemp.getAge()){
+						sortedKids.add(0, temp);
+						index++;
+						break;
+					}
+					if(index >= sortedKids.size()-1){
+						sortedKids.add(temp);
+						index = 0;
+						break;
+					}
 					index++;
-					break;
 				}
-				index++;
 			}
 		}
 		return sortedKids;
