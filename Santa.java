@@ -146,13 +146,13 @@ public class Santa{
 			}
 			else{
 				index = 0;
-				for(Kid sortedTemp : sortedKids){
+				for(Kid sortedTemp : sortedKids){  // finds the correct spot of each kid in the sorted list
 					if(temp.getAge() <= sortedTemp.getAge()){
-						sortedKids.add(0, temp);
+						sortedKids.add(index, temp);
 						index++;
 						break;
 					}
-					if(index >= sortedKids.size()-1){
+					if(index >= sortedKids.size()-1){  //If kid is the oldest
 						sortedKids.add(temp);
 						index = 0;
 						break;
