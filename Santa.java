@@ -13,7 +13,7 @@ public class Santa{
 		kids = sortKids(kids);
 		getBudget();
 		getDays();
-
+		writer.close();
 	}
 
 	public static void fillKidsList(ArrayList kids)throws IOException{ //(ER) Fills the kids array list
