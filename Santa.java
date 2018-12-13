@@ -14,6 +14,30 @@ public class Santa{
 		getBudget();
 		getDays();
 		writer.close();
+		
+		//eliminate toys past number of days
+		for(Gift element: gifts){
+			if(days > gifts.getDaysToBuild())
+				gifts.remove(element);
+		}
+
+		//keep toys as long as less than budget
+		int total = 0;
+		while(total < budget){
+			for(Gift element: gifts){
+				total = total + gifts.getPrice();
+				availableGifts.add(element);
+			}
+		}
+
+		//eliminate naughty kids
+		for(Kid element: kids){
+			if(element.getGoodness.equals("nice")){
+				availableKids.add(element);
+			}
+		}
+
+	printList(availableKids, availableGifts);
 	}
 
 	public static void fillKidsList(ArrayList kids)throws IOException{ //(ER) Fills the kids array list
@@ -163,5 +187,20 @@ public class Santa{
 			}
 		}
 		return sortedKids;
+	}
+	
+	public static void printList(ArrayList<Kid> availableKids, ArrayList<Gift> availableGifts){
+		PrintWriter writer = new PrintWriter(new File("list.txt"));
+		int kidIndex;
+
+		for(int i = 0; i < availableGifts.size(); i++){
+			kidIndex = i % availableKids.size();
+			Kid tempKid = availableKids.get(kidIndex);
+			Gift tempGift = availableGifs.get(i);
+
+			writer.println("Name: " + tempKid.getName() + "\tGift: " + tempGift.getGiftName());
+
+		}
+		writer.close();
 	}
 }
