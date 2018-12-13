@@ -3,6 +3,7 @@ import java.io.*;
 
 public class Santa{
 	public static void main(String[] arg)throws IOException{
+		PrintWriter writer = new PrintWriter(new File("list.txt"));
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
 		ArrayList<Kid> kids = new ArrayList<Kid>();
 
