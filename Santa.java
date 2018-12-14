@@ -23,8 +23,7 @@ public class Santa{
 				availableKids.add(element);
 			}
 		}
-
-	printList(availableKids, availableGifts);
+		printList(availableKids, availableGifts);
 	}
 
 	public static void fillKidsList(ArrayList kids)throws IOException{ //(ER) Fills the kids array list
