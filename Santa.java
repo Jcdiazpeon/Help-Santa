@@ -217,6 +217,7 @@ public class Santa{
 			total += tempGift.getPrice();
 		}
 		System.out.println("\nTotal: " + total);
+		writer.println("\nTotal: " + total);
 		writer.close();
 	}
 }
