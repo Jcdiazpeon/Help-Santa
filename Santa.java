@@ -144,8 +144,9 @@ public class Santa{
 		}
 		return sortedGifts;
 	}
-
-	public static ArrayList sortKids(ArrayList<Kid> kids){  //Sorts arrayList of Kids according to age and returns arrayList (Jose)
+	
+	//Sorts arrayList of Kids according to age and returns arrayList (Jose)
+	public static ArrayList sortKids(ArrayList<Kid> kids){  
 		ArrayList<Kid> sortedKids = new ArrayList<Kid>();
 		int index = 0;
 		boolean isFirst = true;
