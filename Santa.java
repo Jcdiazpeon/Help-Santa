@@ -3,36 +3,23 @@ import java.io.*;
 
 public class Santa{
 	public static void main(String[] arg)throws IOException{
-		PrintWriter writer = new PrintWriter(new File("list.txt"));
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
 		ArrayList<Kid> kids = new ArrayList<Kid>();
+		ArrayList<Gift> availableGifts = new ArrayList<Gift>();
+		ArrayList<Kid> availableKids = new ArrayList<Kid>();
 
 		fillKidsList(kids);
 		fillGiftList(gifts);
 		gifts = sortGifts(gifts);
 		kids = sortKids(kids);
-		getBudget();
-		getDays();
-		writer.close();
-		
-		//eliminate toys past number of days
-		for(Gift element: gifts){
-			if(days > gifts.getDaysToBuild())
-				gifts.remove(element);
-		}
+		double budget = getBudget();
+		int days = getDays();
 
-		//keep toys as long as less than budget
-		int total = 0;
-		while(total < budget){
-			for(Gift element: gifts){
-				total = total + gifts.getPrice();
-				availableGifts.add(element);
-			}
-		}
+		availableGifts = filterGifts(gifts, budget, days);
 
 		//eliminate naughty kids
 		for(Kid element: kids){
-			if(element.getGoodness.equals("nice")){
+			if(element.getGoodness().equals("nice")){
 				availableKids.add(element);
 			}
 		}
@@ -94,7 +81,7 @@ public class Santa{
 			System.out.println("Please enter the budget for Christmas.");
 			budget = r.nextDouble();
 
-				if(budget>100){
+				if(budget > 0){
 					validBudget=true;
 					return budget;
 				}
@@ -127,7 +114,7 @@ public class Santa{
 
 		return days;
 	}
-	
+
 	public static ArrayList sortGifts(ArrayList<Gift> gifts){  //returns a sorted gift array list by price (Jose)
 		ArrayList<Gift> sortedGifts = new ArrayList<Gift>();
 		int index = 0;
@@ -188,19 +175,48 @@ public class Santa{
 		}
 		return sortedKids;
 	}
-	
-	public static void printList(ArrayList<Kid> availableKids, ArrayList<Gift> availableGifts){
+
+	public static ArrayList filterGifts(ArrayList<Gift> gifts, double budget, int days){ //keep toys as long as less than budget and within days to build (Amanda and Jose)
+		ArrayList<Gift> availableGifts = new ArrayList<Gift>();
+		ArrayList<Gift> withinDays = new ArrayList<Gift>();
+		double total = 0;
+		int numOfGifts = 0;
+		boolean enoughMoney = true;
+
+		for(Gift element: gifts){
+			if(element.getDaysToBuild() <= days)
+				withinDays.add(element); //Adds gifts that are within days to arrayList
+		}
+
+		while(enoughMoney){
+			for(Gift element: withinDays){
+				if(total + element.getPrice() <= budget){ //There is still money
+					availableGifts.add(element);  //adds element as available to give
+					total += element.getPrice();
+					numOfGifts++;
+				}
+				else if(total + withinDays.get(0).getPrice() > budget)
+					enoughMoney = false;
+			}
+		}
+		return availableGifts;
+	}
+
+	//Prints final list of kids and their gifts to file and console (Amanda and Jose)
+	public static void printList(ArrayList<Kid> availableKids, ArrayList<Gift> availableGifts)throws IOException{
 		PrintWriter writer = new PrintWriter(new File("list.txt"));
-		int kidIndex;
+		double total = 0;
 
 		for(int i = 0; i < availableGifts.size(); i++){
-			kidIndex = i % availableKids.size();
+			int kidIndex = i % availableKids.size(); //One kid might get more than one gift
 			Kid tempKid = availableKids.get(kidIndex);
-			Gift tempGift = availableGifs.get(i);
+			Gift tempGift = availableGifts.get(i);
 
-			writer.println("Name: " + tempKid.getName() + "\tGift: " + tempGift.getGiftName());
-
+			writer.println(tempKid.getName() + " --> " + tempGift.getGiftName());  //Prints results
+			System.out.println(tempKid.getName() + " --> " + tempGift.getGiftName());
+			total += tempGift.getPrice();
 		}
+		System.out.println("\nTotal: " + total);
 		writer.close();
 	}
 }
