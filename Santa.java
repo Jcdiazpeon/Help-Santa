@@ -144,9 +144,9 @@ public class Santa{
 		}
 		return sortedGifts;
 	}
-	
+
 	//Sorts arrayList of Kids according to age and returns arrayList (Jose)
-	public static ArrayList sortKids(ArrayList<Kid> kids){  
+	public static ArrayList sortKids(ArrayList<Kid> kids){
 		ArrayList<Kid> sortedKids = new ArrayList<Kid>();
 		int index = 0;
 		boolean isFirst = true;
@@ -202,19 +202,42 @@ public class Santa{
 		return availableGifts;
 	}
 
-	//Prints final list of kids and their gifts to file and console (Amanda and Jose)
+	//Prints final list of kids and their gifts to file and console (Amanda, Jose and Jake)
 	public static void printList(ArrayList<Kid> availableKids, ArrayList<Gift> availableGifts)throws IOException{
 		PrintWriter writer = new PrintWriter(new File("list.txt"));
+		String[][] finalList = new String[availableKids.size()][availableGifts.size()];
 		double total = 0;
+		int column = 0;
 
 		for(int i = 0; i < availableGifts.size(); i++){
 			int kidIndex = i % availableKids.size(); //One kid might get more than one gift
 			Kid tempKid = availableKids.get(kidIndex);
 			Gift tempGift = availableGifts.get(i);
 
-			writer.println(tempKid.getName() + " --> " + tempGift.getGiftName());  //Prints results
-			System.out.println(tempKid.getName() + " --> " + tempGift.getGiftName());
+			if(i % availableKids.size() == 0) //ALL kids have at least one gift
+				column++;
+
+			finalList[kidIndex][0] = tempKid.getName();
+			finalList[kidIndex][column] = tempGift.getGiftName();
+
+			//writer.println(tempKid.getName() + " --> " + tempGift.getGiftName());  //Prints results
+			//System.out.println(tempKid.getName() + " --> " + tempGift.getGiftName());
 			total += tempGift.getPrice();
+		}
+
+		//Prints finalList
+		for(int r = 0; r < finalList.length; r++){
+			if(finalList[r][0] != null){
+				System.out.println(finalList[r][0] + ": "); //Prints names
+				writer.println(finalList[r][0] + ": ");
+			}
+
+			for(int c = 1; c < finalList[0].length; c++){
+				if(finalList[r][c] != null){
+					System.out.println("\t" + finalList[r][c]); //prints gifts
+					writer.println("\t" + finalList[r][c]);
+				}
+			}
 		}
 		System.out.println("\nTotal: " + total);
 		writer.println("\nTotal: " + total);
